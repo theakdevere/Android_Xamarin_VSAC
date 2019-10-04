@@ -47,7 +47,7 @@ namespace Android_Xamarin
             AppCenter.Start("43448a3c-1a36-493e-bdc0-4eefed484e19",
                    typeof(Analytics), typeof(Crashes), typeof(Distribute));
 
-            Distribute.SetEnabledAsync(true);
+            //Distribute.SetEnabledAsync(true);
         }
 
         private void content_main_seting()
