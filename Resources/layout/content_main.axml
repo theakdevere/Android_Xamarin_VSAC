@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Event Test"
-            android:onClick="btnEventTest_OnClick"/>
+            android:onClick="BtnEventTest_Click"/>
 
         <Button
             android:id="@+id/btnHanledExceptionTest"            
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_below = "@+id/btnEventTest"
             android:text="Handled Exception Test"
-            android:onClick=""/>
+            android:onClick="BtnHanledExceptionTest_Click"/>
 
         <Button
             android:id="@+id/btnUnhandledExceptionTest"            
@@ -29,6 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_below = "@+id/btnHanledExceptionTest"
             android:text="Unhandled Exception Test"
-            android:onClick=""/>
+            android:onClick="BtnUnhandledExceptionTest_Click"/>
     
 </RelativeLayout>

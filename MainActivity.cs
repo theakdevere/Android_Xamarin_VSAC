@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -19,7 +20,9 @@ namespace Android_Xamarin
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        
+        Button btnEventTest;
+        Button btnHanledExceptionTest;
+        Button btnUnhandledExceptionTest;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -35,26 +38,63 @@ namespace Android_Xamarin
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
+
+            content_main_seting();
         }
 
 
         private void SetupAppCenter()
         {
+            
+
+            
+
+
+            Crashes.SendingErrorReport += Crashes_SendingErrorReport;
+            Crashes.SentErrorReport += Crashes_SentErrorReport;
+            Crashes.FailedToSendErrorReport += Crashes_FailedToSendErrorReport;
+
             AppCenter.LogLevel = LogLevel.Verbose;
 
+            
             Distribute.SetEnabledForDebuggableBuild(true);
 
             AppCenter.Start("43448a3c-1a36-493e-bdc0-4eefed484e19",
                    typeof(Analytics), typeof(Crashes), typeof(Distribute));
 
-            //Distribute.SetEnabledAsync(true);
+            Analytics.TrackEvent($"AppCenter.Started at {DateTime.Now.ToLongTimeString()}");
+            Analytics.TrackEvent($"Distribute.IsEnabledAsync is {Distribute.IsEnabledAsync().Result}");
+
+            Crashes.GetErrorAttachments = (ErrorReport report) =>
+            {
+                // Your code goes here.
+                return new ErrorAttachmentLog[]
+                {
+                    ErrorAttachmentLog.AttachmentWithText($"Crash Report Sent at {DateTime.Now.ToLongTimeString()}", $"Crash_{DateTime.Now.ToLongTimeString()}"),
+                    ErrorAttachmentLog.AttachmentWithBinary(Encoding.UTF8.GetBytes("Fake image"), $"fake_image_Ticks {DateTime.Now.Ticks.ToString()}.jpeg", "image/jpeg")
+                };
+            };
+
+
+        }
+
+        private void Crashes_FailedToSendErrorReport(object sender, FailedToSendErrorReportEventArgs e)
+        {
+            Analytics.TrackEvent($"Crashes_FailedToSendErrorReport at {DateTime.Now.ToLongTimeString()}");
+        }
+
+        private void Crashes_SentErrorReport(object sender, SentErrorReportEventArgs e)
+        {
+            Analytics.TrackEvent($"Crashes_SentErrorReport at {DateTime.Now.ToLongTimeString()}");
+        }
+
+        private void Crashes_SendingErrorReport(object sender, SendingErrorReportEventArgs e)
+        {
+            Analytics.TrackEvent($"Crashes_SendingErrorReport at {DateTime.Now.ToLongTimeString()}");
         }
 
         private void content_main_seting()
         {
-            Button btnEventTest;
-            Button btnHanledExceptionTest;
-            Button btnUnhandledExceptionTest;
 
             btnEventTest = FindViewById<Button>(Resource.Id.btnEventTest);
             btnHanledExceptionTest = FindViewById<Button>(Resource.Id.btnHanledExceptionTest);
