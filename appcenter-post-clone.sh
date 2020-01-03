@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+$PLIST
+
+PLIST=$BUILD_REPOSITORY_LOCALPATH
+
+$PLIST
+
 printf "pwd\n"
 pwd
 
