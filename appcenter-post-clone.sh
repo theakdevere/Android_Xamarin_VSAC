@@ -3,16 +3,14 @@ echo TDEVERE
 
 # Updating Info.plist - version
 
-echo "ls"
+printf "ls\n"
 
-ls
 
-echo "$BUILD_REPOSITORY_LOCALPATH"
+printf "$BUILD_REPOSITORY_LOCALPATH\n"
 
-$BUILD_REPOSITORY_LOCALPATH
 
-echo "$APPCENTER_BUILD_ID"
+printf "$APPCENTER_BUILD_ID\n"
 
-$APPCENTER_BUILD_ID
+
 
 
