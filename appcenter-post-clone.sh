@@ -3,19 +3,16 @@ echo TDEVERE
 
 # Updating Info.plist - version
 
-echo "Updating info.plist!"
+echo "ls"
 
-echo $BUILD_REPOSITORY_LOCALPATH
+ls
 
-echo APPCENTER_BUILD_ID
+echo "$BUILD_REPOSITORY_LOCALPATH"
 
-#PLIST=$BUILD_REPOSITORY_LOCALPATH/"Movez/Supporting\ Files/Info.plist"
+$BUILD_REPOSITORY_LOCALPATH
 
-#/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 0.13.${APPCENTER_BUILD_ID}" $PLIST
+echo "$APPCENTER_BUILD_ID"
 
-# Print out file for reference
+$APPCENTER_BUILD_ID
 
-#cat $PLIST
-
-echo "Updated info.plist!"
 
