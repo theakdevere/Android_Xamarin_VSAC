@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+printf "pwd\n"
+pwd
 
 printf "ls\n"
 ls
