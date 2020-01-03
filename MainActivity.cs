@@ -55,7 +55,7 @@ namespace AndroidXamarin
 
         private void SetupAppCenter()
         {
-            ErrorProperties.Add("SetupAppCenter Start", ID);
+            ErrorProperties.Add("SetupAppCenter Start ErrorProperties", ID);
             Crashes.SendingErrorReport += Crashes_SendingErrorReport;
             Crashes.SentErrorReport += Crashes_SentErrorReport;
             Crashes.FailedToSendErrorReport += Crashes_FailedToSendErrorReport;
