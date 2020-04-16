@@ -67,7 +67,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="appcenter-post-clone.sh" />
+    <None Include="appcenter-post-clone.ps1" />
+    <None Include="appcenter-post-clone.sh_" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
