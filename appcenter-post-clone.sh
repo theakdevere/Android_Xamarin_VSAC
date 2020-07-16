@@ -9,4 +9,4 @@ echo "######################################################"
 echo "List files in AgentToolsDirectory"
 echo "######################################################"
 
-ls AgentToolsDirectory 
+ls $AgentToolsDirectory 
