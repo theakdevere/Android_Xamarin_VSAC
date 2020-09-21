@@ -15,6 +15,7 @@ using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Distribute;
 using Microsoft.AppCenter.Auth;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace AndroidXamarin
 {
@@ -62,7 +63,7 @@ namespace AndroidXamarin
 
             AppCenter.LogLevel = LogLevel.Verbose;
             
-            Distribute.SetEnabledForDebuggableBuild(true);
+            //Distribute.SetEnabledForDebuggableBuild(true);
             Auth.SetEnabledAsync(true);
 
             AppCenter.Start("43448a3c-1a36-493e-bdc0-4eefed484e19",
@@ -152,11 +153,25 @@ namespace AndroidXamarin
 
         private void BtnUnhandledExceptionTest_Click(object sender, EventArgs e)
         {
+            try
+            {
+                throw new Exception("First");
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
             throw new Exception($"BtnUnhandledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
         }
 
         private void BtnHanledExceptionTest_Click(object sender, EventArgs e)
         {
+            NewMethodGroup0();
+
+            myExceptionHandler("first");
+            my2ndExceptionHandler("first");
+
             try
             {   
                 throw new Exception($"BtnHanledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
@@ -164,6 +179,63 @@ namespace AndroidXamarin
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
+            }
+
+            try
+            {
+                string bad2 = System.IO.File.ReadAllText(@"c:\temp\NOTHERE.txt");
+            }
+            catch (Exception ex1)
+            {
+                Crashes.TrackError(ex1);
+            }
+        }
+
+        private void NewMethodGroup0()
+        {
+            string bad = System.IO.File.ReadAllText(@"c:\temp\NOTHERE.txt");
+
+        }
+
+        private void myExceptionHandler(string customMSG)
+        {
+            try
+            {
+                throw new Exception(customMSG);
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+            try
+            {
+                string bad = System.IO.File.ReadAllText(@"c:\temp\NOTHERE.txt");
+            }
+            catch (Exception ex1)
+            {
+                Crashes.TrackError(ex1);
+            }
+        }
+
+        private void my2ndExceptionHandler(string customMSG)
+        {
+            try
+            {
+                throw new Exception(customMSG);
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+            try
+            {
+                string bad = System.IO.File.ReadAllText(@"c:\temp\NOTHERE.txt");
+            }
+            catch (Exception ex1)
+            {
+                Crashes.TrackError(ex1);
             }
         }
 
