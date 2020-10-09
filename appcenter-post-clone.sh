@@ -5,8 +5,14 @@ echo "######################################################"
 echo "List all Environment Variables"
 echo "######################################################"
 printenv
+#echo "######################################################"
+#echo "List files in AgentToolsDirectory"
+#echo "######################################################"
+#ls $AgentToolsDirectory 
 echo "######################################################"
-echo "List files in AgentToolsDirectory"
+echo "START TCPDUMP"
 echo "######################################################"
-
-ls $AgentToolsDirectory 
+tcpdump -G 15 -W 1 -w myfile
+echo "######################################################"
+echo "END TCPDUMP"
+echo "######################################################"
