@@ -12,8 +12,6 @@ using Android.Widget;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Microsoft.AppCenter.Distribute;
-using Microsoft.AppCenter.Auth;
 using System.Threading.Tasks;
 using System.IO;
 
@@ -64,12 +62,15 @@ namespace AndroidXamarin
             AppCenter.LogLevel = LogLevel.Verbose;
             
             //Distribute.SetEnabledForDebuggableBuild(true);
-            Auth.SetEnabledAsync(true);
+            //Auth.SetEnabledAsync(true);
+
+            //AppCenter.Start("43448a3c-1a36-493e-bdc0-4eefed484e19",
+            //       typeof(Analytics), typeof(Crashes), typeof(Distribute), typeof(Auth));
 
             AppCenter.Start("43448a3c-1a36-493e-bdc0-4eefed484e19",
-                   typeof(Analytics), typeof(Crashes), typeof(Distribute), typeof(Auth));
+                   typeof(Analytics), typeof(Crashes));
 
-            
+
 
             ErrorProperties.Add("AppCenter.Start", ID);
 
@@ -77,7 +78,7 @@ namespace AndroidXamarin
 
 
             Analytics.TrackEvent($"AppCenter.Started at {DateTime.Now.ToLongTimeString()}");
-            Analytics.TrackEvent($"Distribute.IsEnabledAsync is {Distribute.IsEnabledAsync().Result}");
+            //Analytics.TrackEvent($"Distribute.IsEnabledAsync is {Distribute.IsEnabledAsync().Result}");
 
             Crashes.GetErrorAttachments = (ErrorReport report) =>
             {
@@ -90,30 +91,30 @@ namespace AndroidXamarin
             };
         }
 
-        private async Task SignInAsync()
-        {
-            try
-            {
-                IsAuthEnabled();
-                
-                // Sign-in succeeded.
-                UserInformation userInfo = await Auth.SignInAsync();
-                string accountId = userInfo.AccountId;
+        //private async Task SignInAsync()
+        //{
+        //    try
+        //    {
+        //        IsAuthEnabled();
 
-                Analytics.TrackEvent($"User {userInfo.AccountId} SignedIn at {DateTime.Now.ToLongTimeString()}");
-            }
-            catch (Exception ex)
-            {
-                Analytics.TrackEvent($"SignInAsync Failed at {DateTime.Now.ToLongTimeString()} Message: {ex.Message}");
-                Crashes.TrackError(ex);
-            }
-        }
+        //        // Sign-in succeeded.
+        //        //UserInformation userInfo = await Auth.SignInAsync();
+        //        //string accountId = userInfo.AccountId;
 
-        private async void IsAuthEnabled()
-        {
-            bool enabled = await Auth.IsEnabledAsync();
-            Analytics.TrackEvent("Auth is Enabled" + enabled.ToString());
-        }
+        //        //Analytics.TrackEvent($"User {userInfo.AccountId} SignedIn at {DateTime.Now.ToLongTimeString()}");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Analytics.TrackEvent($"SignInAsync Failed at {DateTime.Now.ToLongTimeString()} Message: {ex.Message}");
+        //        Crashes.TrackError(ex);
+        //    }
+        //}
+
+        //private async void IsAuthEnabled()
+        //{
+        //    bool enabled = await Auth.IsEnabledAsync();
+        //    Analytics.TrackEvent("Auth is Enabled" + enabled.ToString());
+        //}
 
         private void Crashes_FailedToSendErrorReport(object sender, FailedToSendErrorReportEventArgs e)
         {
@@ -148,21 +149,23 @@ namespace AndroidXamarin
         {
             Analytics.TrackEvent($"BtnLogin_Click at {DateTime.Now.ToLongTimeString()}");
             //Sign In
-            var signInResults = SignInAsync();
+            //var signInResults = SignInAsync();
         }
 
         private void BtnUnhandledExceptionTest_Click(object sender, EventArgs e)
         {
-            try
-            {
-                throw new Exception("First");
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-            }
+
+            DivideByZero();
 
             throw new Exception($"BtnUnhandledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
+        }
+
+        private void DivideByZero()
+        {
+            int x = 1;
+            int z = 0;
+
+            var result = x / z;
         }
 
         private void BtnHanledExceptionTest_Click(object sender, EventArgs e)
