@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-projectDirectory=${PWD}
+#projectDirectory=${PWD}
 echo "***** TDEVERE: Print Android Manifest Contents Before Copy *****"
 echo "$(cat $projectDirectory/Properties/AndroidManifest.xml)" 
 # Copy the Manifest

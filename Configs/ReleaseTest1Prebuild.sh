@@ -1,9 +1,11 @@
 ﻿#!/bin/bash
-projectDirectory=${PWD}
+#projectDirectory=${PWD}
+echo "***** TDEVERE: Print Android Manifest Contents Before Copy *****"
+echo "$(cat $projectDirectory/Properties/AndroidManifest.xml)" 
 # Copy the Manifest
 cd $projectDirectory/Configs/Manifests
-cp -R "AndroidManifest_ReleaseTest21.xml" "$projectDirectory/Properties/AndroidManifest.xml"
+cp -R "AndroidManifest_ReleaseTest1.xml" "$projectDirectory/Properties/AndroidManifest.xml"
 echo "$projectDirectory/Configs/Manifest/AndroidManifest_ReleaseTest1.xml copied to $projectDirectory/Properties/AndroidManifest.xml"
-echo "***** Android Manifest Contents *****"
+echo "***** TDEVERE: Print Android Manifest Contents AFTER Copy *****"
 echo "$(cat $projectDirectory/Properties/AndroidManifest.xml)" 
 exit
