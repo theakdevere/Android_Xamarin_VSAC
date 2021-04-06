@@ -10,6 +10,8 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		GooglePlay|Any CPU = GooglePlay|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release-Test1|Any CPU = Release-Test1|Any CPU
+		Release-Test2|Any CPU = Release-Test2|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release-Test1|Any CPU.ActiveCfg = Release-Test1|Any CPU
+		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release-Test1|Any CPU.Build.0 = Release-Test1|Any CPU
+		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release-Test1|Any CPU.Deploy.0 = Release-Test1|Any CPU
+		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release-Test2|Any CPU.ActiveCfg = Release-Test2|Any CPU
+		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release-Test2|Any CPU.Build.0 = Release-Test2|Any CPU
+		{4379958C-1C97-4287-8FED-983FFF0EBADA}.Release-Test2|Any CPU.Deploy.0 = Release-Test2|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

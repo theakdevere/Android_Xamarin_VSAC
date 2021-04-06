@@ -70,6 +70,26 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Test1|AnyCPU'">
+    <OutputPath>bin\Release-Test1\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Test2|AnyCPU'">
+    <OutputPath>bin\Release-Test2\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -87,6 +107,7 @@
     <None Include="appcenter-post-clone.sh__" />
     <None Include="appcenter-post-clone.ps1_" />
     <None Include="appcenter-post-clone.sh_" />
+    <None Include="Configs\ReleaseTest1Prebuild.sh" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -137,6 +158,14 @@
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Configs\ReleaseTest2Prebuild.sh" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Configs\Manifests\AndroidManifest_ReleaseTest1.xml" />
+    <Content Include="Configs\Manifests\AndroidManifest_ReleaseTest2.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
     Other similar extension points exist, see Microsoft.Common.targets.
@@ -145,4 +174,11 @@
     <Target Name="AfterBuild">
     </Target>
   -->
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <!-- <Target Name="BeforeBuild"> -->
+    <!--    Release 1    -->
+    <Exec Command="sh &quot;$(MSBuildProjectDirectory)/Configs/ReleaseTest1Prebuild.sh&quot; $(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release-Test1'" />
+    <!--    Release 2    -->
+    <Exec Command="sh &quot;$(MSBuildProjectDirectory)/Configs/ReleaseTest2Prebuild.sh&quot; $(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release-Test2'" />
+  </Target>
 </Project>
