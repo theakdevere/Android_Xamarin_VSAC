@@ -14,6 +14,8 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using System.Threading.Tasks;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Reflection.Emit;
 
 namespace AndroidXamarin
 {
@@ -89,6 +91,16 @@ namespace AndroidXamarin
                     ErrorAttachmentLog.AttachmentWithBinary(Encoding.UTF8.GetBytes("Fake image"), $"fake_image_Ticks {DateTime.Now.Ticks.ToString()}.jpeg", "image/jpeg")
                 };
             };
+
+            Crashes.GetErrorAttachments = (ErrorReport report) =>
+            {
+                // Your code goes here.
+                return new ErrorAttachmentLog[]
+                {
+                    ErrorAttachmentLog.AttachmentWithText("PutDetailsHere", "fileName")                    
+                };
+            };
+
         }
 
         //private async Task SignInAsync()
@@ -154,10 +166,10 @@ namespace AndroidXamarin
 
         private void BtnUnhandledExceptionTest_Click(object sender, EventArgs e)
         {
+            throw new MyCustomException(DateTime.Now.Ticks.ToString());
+            //DivideByZero();
 
-            DivideByZero();
-
-            throw new Exception($"BtnUnhandledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
+            //throw new Exception($"BtnUnhandledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
         }
 
         private void DivideByZero()
@@ -170,28 +182,33 @@ namespace AndroidXamarin
 
         private void BtnHanledExceptionTest_Click(object sender, EventArgs e)
         {
-            NewMethodGroup0();
 
-            myExceptionHandler("first");
-            my2ndExceptionHandler("first");
+
+            //throw new MyCustomException(DateTime.Now.Ticks.ToString());
+            //throw new Exception(DateTime.Now.Ticks.ToString());
+            //NewMethodGroup0();
+
+            //myExceptionHandler("first");
+            //my2ndExceptionHandler("first");
 
             try
-            {   
-                throw new Exception($"BtnHanledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
+            {
+                //throw new Exception($"BtnHanledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
+                throw new Exception(DateTime.Now.Ticks.ToString());
             }
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
             }
 
-            try
-            {
-                string bad2 = System.IO.File.ReadAllText(@"c:\temp\NOTHERE.txt");
-            }
-            catch (Exception ex1)
-            {
-                Crashes.TrackError(ex1);
-            }
+            //try
+            //{
+            //    string bad2 = System.IO.File.ReadAllText(@"c:\temp\NOTHERE.txt");
+            //}
+            //catch (Exception ex1)
+            //{
+            //    Crashes.TrackError(ex1);
+            //}
         }
 
         private void NewMethodGroup0()
@@ -277,5 +294,13 @@ namespace AndroidXamarin
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 	}
+
+    public class MyCustomException : Exception
+    {
+        public MyCustomException(string message) : base(message)
+        {
+            Microsoft.AppCenter.Analytics.Analytics.TrackEvent($"MyCustomException: {message}");
+        }
+    }
 }
 
