@@ -70,20 +70,15 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Test1|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Test1|AnyCPU'">
+    <OutputPath>bin\Release-Test1\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release-Test1</OutputPath>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AndroidManagedSymbols>true</AndroidManagedSymbols>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Test2|AnyCPU'">
     <OutputPath>bin\Release-Test2\</OutputPath>
@@ -178,11 +173,11 @@
     </Target>
     <Target Name="AfterBuild">
     </Target>
-  -->
+
     <Target Name="BeforeBuild">
 	    <Exec Command="sh &quot;$(MSBuildProjectDirectory)/Configs/ReleaseTest1Prebuild.sh&quot; $(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release-Test1'" />
-		<!--    Release 2    -->
-		<Exec Command="sh &quot;$(MSBuildProjectDirectory)/Configs/ReleaseTest2Prebuild.sh&quot; $(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release-Test2'" />
-    </Target>
 
+		<Exec Command="sh &quot;$(MSBuildProjectDirectory)/Configs/ReleaseTest2Prebuild.sh&quot; $(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release-Test2'" />
+    </Target> 	
+	-->
 </Project>
