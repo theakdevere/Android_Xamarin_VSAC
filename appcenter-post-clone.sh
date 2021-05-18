@@ -18,6 +18,5 @@ echo "######################################################"
 echo "######################################################"
 echo "GET: gradle --version"
 gradle --version
-echo "Done: gradle version"
 echo "######################################################"
 echo "End appcenter-post-clone.sh"
