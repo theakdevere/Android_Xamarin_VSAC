@@ -1,14 +1,10 @@
 ﻿$env:APPCENTER_SOURCE_DIRECTORY #print the APPCENTER_SOURCE_DIRECTORY
 $nugetConfig = Join-Path -Path $env:APPCENTER_SOURCE_DIRECTORY -ChildPath "nuget.config"
 $nugetConfig #print $nugetConfig
-
 $nugetconfig = Get-Childitem -Path $env:APPCENTER_SOURCE_DIRECTORY -Filter nuget.config
-
 $nugetconfig.FullName #Print the full name to the file
 (Get-Content $nugetconfig.FullName -Raw) -replace 'YourPassword', $env:VSS_NUGET_EXTERNAL_FEED_ENDPOINTS | Set-Content -path $nugetconfig.FullName #replace the text with PAT
 Get-Content $nugetconfig.FullName #print the file
-
 nuget source #list sources
-
 nuget install VSAC_Diag -OutputDirectory $APPCENTER_SOURCE_DIRECTORY
 
