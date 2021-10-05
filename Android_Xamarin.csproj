@@ -114,6 +114,12 @@
     <None Include="appcenter-post-clone.sh__" />
     <None Include="appcenter-post-clone.ps1_" />
     <None Include="appcenter-post-clone.sh" />
+    <EmbeddedResource Include="Assets\out.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\out2.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="NuGet.Config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
