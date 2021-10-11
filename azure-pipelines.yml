@@ -23,7 +23,7 @@ steps:
   inputs:
     serverEndpoint: 'AppCenter_AzureDistribution'
     appSlug: 'Examples/AzureDistribution'
-    appFile: '/Users/runner/work/1/b/Release/'
+    appFile: '/Users/runner/work/1/b/Release/com.companyname.AndroidXamarin.tdevere.apk'
     buildVersion: '1.0.0.0'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
