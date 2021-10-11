@@ -1,4 +1,15 @@
 # Xamarin.Android
+- task: AppCenterDistribute@3
+  inputs:
+    serverEndpoint: 'AppCenter_AzureDistribution'
+    appSlug: 'Examples/AzureDistribution'
+    appFile: '/Users/runner/work/1/b/Release/'
+    buildVersion: '1.0.0.0'
+    symbolsOption: 'Android'
+    releaseNotesOption: 'input'
+    releaseNotesInput: 'First Release'
+    destinationType: 'groups'
+    distributionGroupId: '4a004399-6ddc-4249-ba53-6567ac2c9677'
 # Build a Xamarin.Android project.
 # Add steps that test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
