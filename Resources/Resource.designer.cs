@@ -14,7 +14,7 @@ namespace AndroidXamarin
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.0.99.19")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.3.3.31")]
 	public partial class Resource
 	{
 		
