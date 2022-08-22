@@ -49,7 +49,6 @@ namespace AndroidXamarin
             fab.Click += FabOnClick;
 
             content_main_seting();
-
           
         }
 
@@ -62,24 +61,26 @@ namespace AndroidXamarin
             Crashes.FailedToSendErrorReport += Crashes_FailedToSendErrorReport;
 
             AppCenter.LogLevel = LogLevel.Verbose;
-            
+
             //Distribute.SetEnabledForDebuggableBuild(true);
             //Auth.SetEnabledAsync(true);
 
             //AppCenter.Start("43448a3c-1a36-493e-bdc0-4eefed484e19",
             //       typeof(Analytics), typeof(Crashes), typeof(Distribute), typeof(Auth));
 
+            //condition `fpctx->head.magic == FPSIMD_MAGIC' not met
+            //https://github.com/microsoft/appcenter/issues/151
+            
             AppCenter.Start("43448a3c-1a36-493e-bdc0-4eefed484e19",
                    typeof(Analytics), typeof(Crashes));
 
-
+            //AppCenter.SetUserId(@"{""ci"":""tdevere""}");
+            AppCenter.SetUserId("789456123");
 
             ErrorProperties.Add("AppCenter.Start", ID);
 
-            
-
-
             Analytics.TrackEvent($"AppCenter.Started at {DateTime.Now.ToLongTimeString()}");
+            Analytics.TrackEvent(@"{""ci"":""tdevere""}");
             //Analytics.TrackEvent($"Distribute.IsEnabledAsync is {Distribute.IsEnabledAsync().Result}");
 
             Crashes.GetErrorAttachments = (ErrorReport report) =>
