@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Reflection.Emit;
+using System.Collections;
+using System.Reflection;
 
 namespace AndroidXamarin
 {
@@ -83,6 +85,8 @@ namespace AndroidXamarin
             Analytics.TrackEvent(@"{""ci"":""tdevere""}");
             //Analytics.TrackEvent($"Distribute.IsEnabledAsync is {Distribute.IsEnabledAsync().Result}");
 
+            Crashes.SendingErrorReport += Crashes_SendingErrorReport1;
+
             Crashes.GetErrorAttachments = (ErrorReport report) =>
             {
                 // Your code goes here.
@@ -101,6 +105,36 @@ namespace AndroidXamarin
                     ErrorAttachmentLog.AttachmentWithText("PutDetailsHere", "fileName")                    
                 };
             };
+
+        }
+
+        private void Crashes_SendingErrorReport1(object sender, SendingErrorReportEventArgs e)
+        {
+            ErrorReport errorReport = e.Report;
+            PropertyInfo[] errReportProperties = errorReport.GetType().GetProperties();
+            IEnumerator enumerator = errReportProperties.GetEnumerator();
+
+            foreach (PropertyInfo propInfo in errReportProperties)
+            {
+                try
+                {
+                    if (propInfo.PropertyType == typeof(string) && propInfo.GetGetMethod() != null)
+                    {
+                        string name= propInfo.Name;                        
+                        var methodInfo = propInfo.GetGetMethod().Invoke(propInfo, null);
+
+                        ErrorProperties.Add(name, methodInfo.ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+            //ErrorProperties
+            Analytics.TrackEvent("Crashes_SendingErrorReport", ErrorProperties);
+
 
         }
 
