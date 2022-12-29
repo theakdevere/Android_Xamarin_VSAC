@@ -17,6 +17,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Reflection.Emit;
 
+
 namespace AndroidXamarin
 {
     [Activity(Label = "AndroidXamarin", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
@@ -32,6 +33,8 @@ namespace AndroidXamarin
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             ErrorProperties.Add("OnCreate Called", ID);
             SetupAppCenter();
             ErrorProperties.Add("SetupAppCenter Completed", ID);
@@ -52,8 +55,16 @@ namespace AndroidXamarin
           
         }
 
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = ((Exception)e.ExceptionObject);
 
-        private void SetupAppCenter()
+
+            Crashes.TrackError(ex);
+        }
+
+
+            private void SetupAppCenter()
         {
             ErrorProperties.Add("SetupAppCenter Start", ID);
             Crashes.SendingErrorReport += Crashes_SendingErrorReport;
@@ -167,10 +178,21 @@ namespace AndroidXamarin
 
         private void BtnUnhandledExceptionTest_Click(object sender, EventArgs e)
         {
-            throw new MyCustomException(DateTime.Now.Ticks.ToString());
-            //DivideByZero();
 
-            //throw new Exception($"BtnUnhandledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
+            try
+            {
+                throw new Exception($"BtnUnhandledExceptionTest_Click at {DateTime.Now.ToLongTimeString()}");
+                //throw new MyCustomException(DateTime.Now.Ticks.ToString());
+            }
+            catch(Exception ex)
+            {
+                Android.Support.V7.App.AlertDialog.Builder dialog = new Android.Support.V7.App.AlertDialog.Builder(this);
+                Android.Support.V7.App.AlertDialog alert = dialog.Create();
+
+                alert.SetTitle(ex.Message);
+                alert.SetMessage(ex.StackTrace);
+                alert.Show();
+            }          
         }
 
         private void DivideByZero()
@@ -183,8 +205,6 @@ namespace AndroidXamarin
 
         private void BtnHanledExceptionTest_Click(object sender, EventArgs e)
         {
-
-
             //throw new MyCustomException(DateTime.Now.Ticks.ToString());
             //throw new Exception(DateTime.Now.Ticks.ToString());
             //NewMethodGroup0();
@@ -301,6 +321,11 @@ namespace AndroidXamarin
         public MyCustomException(string message) : base(message)
         {
             Microsoft.AppCenter.Analytics.Analytics.TrackEvent($"MyCustomException: {message}");
+        }
+
+        public MyCustomException(Exception ex)
+        {
+            
         }
     }
 }
